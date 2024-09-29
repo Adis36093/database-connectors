@@ -1,0 +1,34 @@
+#%RAML 1.0
+title: database-connectors-practice-api
+version: v1
+baseUri: http://mydatabase.com/api/{version} 
+
+/select:
+  get:
+    description: Get all rows from database.
+    responses:
+      200:
+        body:
+          application/json: 
+            example: !include examples/selectQueryAllResponseExample.raml
+
+  /{customerID}:
+    get:
+      description: Get row based on unique id of customer.
+      responses:
+       200:
+        body:
+          application/json: 
+            example: !include examples/selectQueryResponseExample.raml
+
+/new:
+  post:
+    description: Insert a new record in the database.
+    body:
+      application/json:
+        type: !include schemas/insertNewRecordDataType.raml
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/insertNewRecordResponseExample.raml

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="fetch-data-from-database-based-on-unique-id-query-flow" doc:id="5e1a4161-20d5-4941-a205-02cdd2174eca" >
+		<logger level="INFO" doc:name="Before Request" doc:id="1d9f2eef-12f7-4b76-bf58-af8493831eb5" message="Before requesting data from database"/>
+		<db:select doc:name="Select row based on customer id" doc:id="d9310392-a584-4d9c-a8fc-05d662ccb3ce" config-ref="Database_Config">
+			<db:sql><![CDATA[SELECT custid, custname, accountNumber FROM bankdetails WHERE custid = :customerID]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+	customerID: vars.customerID
+}]]]></db:input-parameters>
+		</db:select>
+		<logger level="INFO" doc:name="After Request" doc:id="32eed3ad-00cc-4cc4-b476-40bb72c731f0" message="Data received successfully from database"/>
+		<ee:transform doc:name="Response Payload" doc:id="f0b6db33-e447-4348-9ca4-e8bd6db404a4">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="fetch-data-from-database-query-flow" doc:id="c36d6919-baef-4e4f-902d-d04f940d22e1" >
+		<logger level="INFO" doc:name="Before Request" doc:id="8f2a4a96-64ab-4ed3-94ef-441af9ba9c4a" message="Before requesting data from database" />
+		<db:select doc:name="Select all rows" doc:id="fe253907-adb2-44e4-a1a4-2670cc25501b" config-ref="Database_Config" >
+			<db:sql ><![CDATA[SELECT custid, custname, accountNumber FROM bankdetails;]]></db:sql>
+		</db:select>
+		<logger level="INFO" doc:name="After Request" doc:id="150bb661-bce6-49fe-a8c0-806048f7092e" message="Data received successfully from database" />
+		<ee:transform doc:name="Response Payload" doc:id="11495834-6c7c-45c9-a808-0991d5a2984e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="insert-new-record-query-flow" doc:id="6d3248c3-8b72-4848-b865-68bcdbfa21ee" >
+		<logger level="INFO" doc:name="Before Request" doc:id="6205c28d-022b-4115-9202-fb384abed7cd" message="Before inserting record into database"/>
+		<ee:transform doc:name="Transform Payload" doc:id="4d2da199-4dac-4339-8b12-a475a16aa8f8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"custid": payload.custid as String,
+	"custname": payload.custname as String,
+	"accountNumber": payload.accountNumber as Number
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<db:insert doc:name="Insert Record" doc:id="3938b57a-3fbe-4abf-ad4a-4cd1e0e40ac1" config-ref="Database_Config">
+			<db:sql ><![CDATA[INSERT INTO bankdetails (custid, custname, accountNumber)
+VALUES (:custid, :custname, :accountNumber)]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	custid: payload.custid,
+	custname: payload.custname,
+	accountNumber: payload.accountNumber
+}]]]></db:input-parameters>
+		</db:insert>
+		<logger level="INFO" doc:name="After Request" doc:id="d1cd9cff-3630-49fb-b278-f5ca921a8147" message="Record inserted into database successfully"/>
+		<ee:transform doc:name="Response Payload" doc:id="326d38ca-3a50-440b-bb2e-44491b79dc7f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
