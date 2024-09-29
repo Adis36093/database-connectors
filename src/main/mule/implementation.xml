@@ -43,14 +43,7 @@ payload]]></ee:set-payload>
 		<logger level="INFO" doc:name="Before Request" doc:id="6205c28d-022b-4115-9202-fb384abed7cd" message="Before inserting record into database"/>
 		<ee:transform doc:name="Transform Payload" doc:id="4d2da199-4dac-4339-8b12-a475a16aa8f8" >
 			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-	"custid": payload.custid as String,
-	"custname": payload.custname as String,
-	"accountNumber": payload.accountNumber as Number
-}]]></ee:set-payload>
+				<ee:set-payload resource="dwl/insert-payload.dwl" />
 			</ee:message>
 		</ee:transform>
 		<db:insert doc:name="Insert Record" doc:id="3938b57a-3fbe-4abf-ad4a-4cd1e0e40ac1" config-ref="Database_Config">

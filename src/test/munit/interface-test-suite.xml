@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="interface-test-suite.xml" />
+	<munit:test name="get:\select:database-connectors-practice-api-config-test" doc:id="3a12bd01-9b66-41c8-821c-d5733f7cc146" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="9ad0799c-712f-4c16-ab6d-aa6dfb144f44" />
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference to get:\select:database-connectors-practice-api-config" doc:id="f8fcecb3-6fc0-4097-8fbf-3725813d068b" name="get:\select:database-connectors-practice-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call flow-ref" doc:id="a9286785-53c7-4e2a-a456-e4ba72a3b8e2" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="102fdba5-eb0a-4ba6-b26e-7e59fbea2bb9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="interface-test-suite-get:\select\(customerID):database-connectors-practice-api-config-test" doc:id="0536cdda-8c37-405a-840a-4b50dca9f6ab" description="Test">
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="a9a660ad-93b0-40f6-b877-edbb140ab785" >
+				<munit:variables >
+					<munit:variable key="customerID" value="4" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\select\(customerID):database-connectors-practice-api-config" doc:id="edb71ac4-2ad6-43b7-b61e-cd75ef9335d8" name="get:\select\(customerID):database-connectors-practice-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call to flow-ref" doc:id="6b4388fa-e99b-4932-b9d1-9482d4b4335d" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fec7b80e-97ab-4d29-9a04-6e7ada573b77" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="interface-test-suite-post:\new:application\json:database-connectors-practice-api-config-test" doc:id="12399764-4c73-41d2-9c09-67cd228f7f6d" description="Test">
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="bb54ad3c-2dc9-4f8a-badb-f8b695514ae6" >
+				<munit:payload value='#[output application/json --- readUrl("classpath://dwl\\insert-request.dwl")]' mediaType="application/json" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\new:application\json:database-connectors-practice-api-config" doc:id="8a4d61d1-ff30-4419-95ea-810f315cb599" name="post:\new:application\json:database-connectors-practice-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call to flow-ref" doc:id="1717bf44-ac20-4891-9832-46bb18f4378b" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="10c833da-b5f6-4034-8074-1138f5a6cd27" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
