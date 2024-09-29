@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="b071d07d-9e00-4f39-be2c-9f9f0354f31d" >
+		<db:generic-connection url="${database.url}" driverClassName="${database.driver}" user="${database.username}" password="${database.password}" />
+	</db:config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="62272429-c3e9-4536-b62b-c01c2478b6e2" >
+		<http:listener-connection host="${http.host}" port="${http.port}" readTimeout="${http.read-timeout}"/>
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="8a8d4b9b-a17f-44be-817a-9b09a2af6b6d" file="config/${env}.yaml" />
+
+</mule>

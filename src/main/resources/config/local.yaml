@@ -1,0 +1,10 @@
+http:
+ host: "localhost"
+ port: "8081"
+ read-timeout: "3000"
+ 
+database:
+ url: "jdbc:postgresql://localhost:5432/postgres"
+ driver: "org.postgresql.Driver"
+ username: "postgres"
+ password: "postgres"
