@@ -76,6 +76,30 @@
 			</munit-tools:verify-call>
 		</munit:validation>
 	</munit:test>
+	<munit:test name="implementation-test-suite-delete-record-query-flow-unit-test" doc:id="c5fac54c-05a5-4ef4-b06f-5faaf2c410b6" description="Test">
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="f12cf440-c0f7-4d3e-8afc-9161b3627397" >
+				<munit:variables >
+					<munit:variable key="custid" value="5" />
+				</munit:variables>
+			</munit:set-event>
+			<munit-tools:mock-when doc:name="Mock Delete Query Connector" doc:id="adfe2c6b-cb08-4ee3-a2a3-586d2e8f5866" processor="db:delete">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="49a669c4-a5d4-43c4-a95f-adaf4b25a803" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to delete-record-query-flow" doc:id="8d2d5a8a-8bc3-4bfb-b013-dce803cf775e" name="delete-record-query-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call to transform message" doc:id="d4b754ab-184a-49fa-b217-f1e5f6f267a8" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="91df3262-2b7e-4f4f-9aee-9d526a12ee38" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
 
 
 </mule>

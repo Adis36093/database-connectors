@@ -65,4 +65,22 @@ payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 	</sub-flow>
+	<sub-flow name="delete-record-query-flow" doc:id="b4e5068a-59f4-4126-bd90-b431e44f0980" >
+		<logger level="INFO" doc:name="Before Request" doc:id="59745b80-31d2-4925-9409-971cb93140e0" message="Before deleting rows from database"/>
+		<db:delete doc:name="Delete rows" doc:id="49a669c4-a5d4-43c4-a95f-adaf4b25a803" config-ref="Database_Config">
+			<db:sql ><![CDATA[DELETE FROM bankdetails WHERE custid = :custid]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	custid: vars.custid
+}]]]></db:input-parameters>
+		</db:delete>
+		<logger level="INFO" doc:name="After Request" doc:id="7ded0a28-5c7d-42fd-97ef-56539a00d918" message="Rows deleted from database successfully"/>
+		<ee:transform doc:name="Response Payload" doc:id="91df3262-2b7e-4f4f-9aee-9d526a12ee38" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
 </mule>

@@ -59,6 +59,44 @@
 			</munit-tools:verify-call>
 		</munit:validation>
 	</munit:test>
+	<munit:test name="interface-test-suite-delete:\new:database-connectors-practice-api-configTest" doc:id="f73d70a3-828e-44f6-93a3-c7a48cc68697" description="Test">
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="9e40e51c-94a3-4601-85bf-70f1fc77f669" >
+				<munit:variables >
+					<munit:variable key="custid" value="5" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to delete:\new:database-connectors-practice-api-config" doc:id="a3401831-1539-49e0-a016-4985acff5fa6" name="delete:\new:database-connectors-practice-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call to transform message" doc:id="7c5f1c09-942d-4aec-8002-d61d7b23ad59" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="91df3262-2b7e-4f4f-9aee-9d526a12ee38" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="interface-test-suite-database-connectors-practice-api-main-flowTest" doc:id="1077f7a6-0788-45e8-ac1c-309d11ac8fe8" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock APIKIT Router" doc:id="3a11af5e-fdc3-41d3-b5f6-1117d9a716c1" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-connectors-practice-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to database-connectors-practice-api-main-flow" doc:id="96fa9526-38b8-4522-8bce-edd75a6bdebc" name="database-connectors-practice-api-main-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call to logger" doc:id="b2eb3bb2-64f0-4839-b614-3abfc0540b30" processor="logger">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2875247d-f1ca-4a38-a421-c89406a27598" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
 
 
 </mule>

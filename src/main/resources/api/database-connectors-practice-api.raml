@@ -32,3 +32,16 @@ baseUri: http://mydatabase.com/api/{version}
         body:
           application/json:
             example: !include examples/insertNewRecordResponseExample.raml
+
+  delete:
+    description: Delete a row from database.
+    queryParameters:
+      custid:
+        type: string
+        required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/deleteRecordResponseExample.raml
+
